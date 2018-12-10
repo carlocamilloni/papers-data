@@ -1,0 +1,22 @@
+MOLINFO STRUCTURE=aacgmodel.pdb
+WHOLEMOLECULES ENTITY0=1-1393,3125-3349,1372-2938,3320-3511,2262-3124
+
+### BEADS DEFINITION
+INCLUDE FILE=plumed-beads.dat 
+
+### RESTRAINTS
+INCLUDE FILE=plumed-restr.dat 
+
+### METAINFERENCE
+INCLUDE FILE=plumed-saxsCG.dat
+saxsbias: BIASVALUE ARG=(saxsdata\.score) STRIDE=10 
+
+
+#STAT
+statcg: STATS ARG=(saxsdata\.q_.*) PARARG=(saxsdata\.exp_.*)
+
+## PRINT
+PRINT ARG=(saxsdata\.score),(saxsdata\.scale),(saxsdata\.acceptScale),(saxsdata\.offset),(saxsdata\.acceptSigma),(saxsdata\.sigma.*) STRIDE=500 FILE=BAYES.SAXS
+PRINT ARG=(saxsdata\.q_.*) STRIDE=500 FILE=QVALCG
+PRINT ARG=statcg.* STRIDE=500 FILE=ST.SAXSCG
+

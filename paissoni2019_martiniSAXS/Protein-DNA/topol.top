@@ -1,0 +1,53 @@
+;
+;	File 'topol.top' was generated
+;	By user: cristina (503)
+;	On host: dhcp-162-86.celoria26-16000022-smfn_biodip.unimi.it
+;	At date: Mon Oct 15 10:59:06 2018
+;
+;	This is a standalone topology file
+;
+;	Created by:
+;	                    :-) GROMACS - gmx pdb2gmx, 2018.1 (-:
+;	
+;	Executable:   /Users/cristina/Codes/opt/gromacs-2018.1/bin/gmx_mpi
+;	Data prefix:  /Users/cristina/Codes/opt/gromacs-2018.1
+;	Working dir:  /Users/cristina/Documents/Projects/SAXS_FormFactor/Refinement/SASDAB7/Refinement
+;	Command line:
+;	  gmx_mpi pdb2gmx -f SASDAB7_fit1_model1_OK.pdb -o step0.gro -ignh
+;	Force field was read from current directory or a relative path - path added.
+;
+
+; Include forcefield parameters
+#include "./amber14sb_parmbsc1.ff/forcefield.itp"
+
+; Include chain topologies
+#include "topol_DNA_chain_A.itp"
+#include "topol_DNA_chain_A2.itp"
+#include "topol_Protein_chain_R.itp"
+#include "topol_Protein_chain_S.itp"
+
+; Include water topology
+#include "./amber14sb_parmbsc1.ff/tip3p.itp"
+
+#ifdef POSRES_WATER
+; Position restraint for each water oxygen
+[ position_restraints ]
+;  i funct       fcx        fcy        fcz
+   1    1       1000       1000       1000
+#endif
+
+; Include topology for ions
+#include "./amber14sb_parmbsc1.ff/ions.itp"
+
+[ system ]
+; Name
+FASTA_SEQUENCE:; 5’-AAGTACACTTTGGGAGAAAAAAATGACAGTTGAGAGAA-3’; 3’-TTCATGTGAAACCCTCTTTTTTTACTGTCAA; CTCTCTT-5'; FASTA_SEQUENCE:; MKVLILEDVIEHQVRLERILDEISKESNIPISYKTTGKVREFEEYIENDEVNQLYFLAID; IHGIEKKGFEVAQLIRHYN; PYAIIVFITSRSEFATLTYKYQVSALDFVDKDINDEMFKKR; IEQNIFYTKSMLLENEDVVDYFDYNYKGNDLKIPYHDI; LYIETTGVSHKLRIIGKNFAKE; FYGTMTDIQEKDKHTQRFYSPHKSFLVNIGNIREIDRKNLEIVFYEDHRCPISRLKI; RKL; KDILEKKSQKHHHHHH in water
+
+[ molecules ]
+; Compound        #mols
+DNA_chain_A         1
+DNA_chain_A2        1
+Protein_chain_R     1
+Protein_chain_S     1
+SOL         36357
+NA               79
